@@ -13,6 +13,8 @@ import java.util.List;
 @RequestMapping("parkinglot")
 public class ParkingLotController {
 
+    private final ParkingLotService parkingLotService;
+
     public ParkingLotController(ParkingLotService parkingLotService) {
         this.parkingLotService = parkingLotService;
     }
