@@ -1,6 +1,9 @@
 package org.afs.pakinglot.service;
 
+import org.afs.pakinglot.domain.Car;
 import org.afs.pakinglot.domain.ParkingLot;
+import org.afs.pakinglot.domain.Ticket;
+import org.afs.pakinglot.domain.strategies.ParkingStrategy;
 import org.afs.pakinglot.repository.ParkingLotRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +21,11 @@ public class ParkingLotService {
     public List<ParkingLot> getAllParkingLots() {
         return parkingLotRepository.findAll();
     }
+
+    public Ticket parkCar(String strategy, Car car) {
+        // Assuming the repository has a method to park the car
+        return parkingLotRepository.parkCar(strategy, car);
+    }
+
+
 }

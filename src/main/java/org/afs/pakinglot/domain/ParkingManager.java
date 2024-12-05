@@ -38,13 +38,12 @@ public class ParkingManager {
         return List.of(standardParkingBoy, smartParkingBoy, superSmartParkingBoy);
     }
 
-    public Ticket park(ParkingStrategy strategy, Car car) {
-        ParkingBoy parkingBoy = switch (strategy.getClass().getSimpleName()) {
-            case "SequentiallyStrategy" -> standardParkingBoy;
-            case "MaxAvailableStrategy" -> smartParkingBoy;
-            case "AvailableRateStrategy" -> superSmartParkingBoy;
+    public Ticket park(String strategy, Car car) {
+      return switch (strategy) {
+            case "NORMAL" -> standardParkingBoy.park(car);
+            case "SMART" -> smartParkingBoy.park(car);
+            case "SUPER" -> superSmartParkingBoy.park(car);
             default -> throw new IllegalArgumentException("Unknown parking strategy");
         };
-        return parkingBoy.park(car);
     }
 }

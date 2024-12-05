@@ -19,4 +19,13 @@ create me a rest controller ParkingLot controller, with @requestmapping("parking
 Create me a rest controller ParkingLot controller, with @requestmapping("parkinglot"). Then with a get request which returns all the parking lots. It will call ParkingLotService to get the parking lots
 
 -----------------------------------------------------
+
 generate me a ParkingLotControllerTest, for integration test the ParkingLotController, using the given when then format in strict manner
+
+-----------------------------------------------------
+
+create a new post mapping park cars, which accept and parking strategy and Car object as request body and parks car using parkingLotService
+
+-----------------------------------------------------
+
+write a integration test in ParkingLotCOntroller for the parkCar method on postmapping "/park"
