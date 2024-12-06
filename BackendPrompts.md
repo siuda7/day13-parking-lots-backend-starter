@@ -29,3 +29,8 @@ create a new post mapping park cars, which accept and parking strategy and Car o
 -----------------------------------------------------
 
 write a integration test in ParkingLotCOntroller for the parkCar method on postmapping "/park"
+
+-----------------------------------------------------
+
+group the post to car park test with @parameter with different strategy
+

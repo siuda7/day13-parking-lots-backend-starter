@@ -4,18 +4,18 @@ public class ParkCarRequest {
 
     private String strategy;
 
-    private Car car;
+    private String carPlate;
 
-    public ParkCarRequest(String strategy, Car car) {
+    public ParkCarRequest(String strategy, String carPlate) {
         this.strategy = strategy;
-        this.car = car;
+        this.carPlate = carPlate;
     }
 
     public String getStrategy() {
         return strategy;
     }
 
-    public Car getCar() {
-        return car;
+    public String getCarPlate() {
+        return carPlate;
     }
 }

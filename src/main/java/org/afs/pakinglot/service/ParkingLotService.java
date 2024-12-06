@@ -22,8 +22,9 @@ public class ParkingLotService {
         return parkingLotRepository.findAll();
     }
 
-    public Ticket parkCar(String strategy, Car car) {
+    public Ticket parkCar(String strategy, String carPlate) {
         // Assuming the repository has a method to park the car
+        Car car = new Car(carPlate);
         return parkingLotRepository.parkCar(strategy, car);
     }
 

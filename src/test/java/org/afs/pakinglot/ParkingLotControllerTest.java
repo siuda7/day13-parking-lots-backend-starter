@@ -8,6 +8,8 @@ import org.afs.pakinglot.domain.Ticket;
 import org.afs.pakinglot.repository.ParkingLotRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -70,57 +72,21 @@ class ParkingLotControllerTest {
                 .andExpect(jsonPath("$[2].capacity").value(9));
     }
 
-    // different strategies
-    @Test
-    void given_park_car_request_when_post_to_park_then_return_ticket() throws Exception {
+    @ParameterizedTest
+    @CsvSource({
+            "SUPER, 1, 1",
+            "NORMAL, 2, 1",
+            "SMART, 1, 2"
+    })
+    void given_park_car_request_when_post_to_park_then_return_ticket(String strategy, Integer position, Integer parkingLot) throws Exception {
         // Given
         Car car = new Car("ABC123");
-        String strategy = "SUPER";
-        Ticket ticket = new Ticket("ABC123", 1, 1);
+        String carPlate = "ABC123";
+        Ticket ticket = new Ticket("ABC123", position, parkingLot);
 
         given(parkingLotRepository.parkCar(strategy, car)).willReturn(ticket);
 
-        ParkCarRequest request = new ParkCarRequest(strategy, car);
-
-        // When
-        client.perform(post("/parkinglot/park")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                // Then
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(ticket)));
-    }
-
-    @Test
-    void given_park_car_request_when_post_to_park_with_normal_strategy_then_return_ticket() throws Exception {
-        // Given
-        Car car = new Car("ABC123");
-        String strategy = "NORMAL";
-        Ticket ticket = new Ticket("ABC123", 1, 1);
-
-        given(parkingLotRepository.parkCar(strategy, car)).willReturn(ticket);
-
-        ParkCarRequest request = new ParkCarRequest(strategy, car);
-
-        // When
-        client.perform(post("/parkinglot/park")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                // Then
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(ticket)));
-    }
-
-    @Test
-    void given_park_car_request_when_post_to_park_with_smart_strategy_then_return_ticket() throws Exception {
-        // Given
-        Car car = new Car("ABC123");
-        String strategy = "SMART";
-        Ticket ticket = new Ticket("ABC123", 1, 1);
-
-        given(parkingLotRepository.parkCar(strategy, car)).willReturn(ticket);
-
-        ParkCarRequest request = new ParkCarRequest(strategy, car);
+        ParkCarRequest request = new ParkCarRequest(strategy, carPlate );
 
         // When
         client.perform(post("/parkinglot/park")

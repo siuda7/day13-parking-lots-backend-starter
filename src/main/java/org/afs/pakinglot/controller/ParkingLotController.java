@@ -26,6 +26,6 @@ public class ParkingLotController {
 
     @PostMapping("/park")
     public Ticket parkCar(@RequestBody ParkCarRequest request) {
-        return parkingLotService.parkCar(request.getStrategy(), request.getCar());
+        return parkingLotService.parkCar(request.getStrategy(), request.getCarPlate());
     }
 }
