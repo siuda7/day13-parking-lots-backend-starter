@@ -34,3 +34,6 @@ write a integration test in ParkingLotCOntroller for the parkCar method on postm
 
 group the post to car park test with @parameter with different strategy
 
+-----------------------------------------------------
+
+generate me all unit test cases for ParkingManager in ParkingManagerTest with stirct order and full coverage
