@@ -37,3 +37,7 @@ group the post to car park test with @parameter with different strategy
 -----------------------------------------------------
 
 generate me all unit test cases for ParkingManager in ParkingManagerTest with stirct order and full coverage
+
+-----------------------------------------------------
+
+add a new function in ParkingManager call fetch, which fetches the Car given a carplates from all of its parkinglots and return the car

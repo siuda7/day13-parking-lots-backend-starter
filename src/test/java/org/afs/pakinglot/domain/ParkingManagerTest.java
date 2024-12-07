@@ -41,7 +41,7 @@ class ParkingManagerTest {
     @CsvSource({
             "NORMAL, ABC123, 1, 1",
             "SMART, DEF456, 2, 2",
-            "SUPER, GHI789, 1, 2 "
+            "SUPER, GHI789, 2, 2 "
     })
     void given_park_car_request_when_park_with_different_strategies_then_return_ticket(String strategy, String carPlate, int expectedLotId, int expectedTicketId) {
         // Given
@@ -63,5 +63,43 @@ class ParkingManagerTest {
             parkingManager.park("UNKNOWN", car);
         });
         assertEquals("Unknown parking strategy", exception.getMessage());
+    }
+
+    @Test
+    void given_existing_car_plate_when_fetch_then_return_car() {
+        // Given
+        String carPlate = "ABC123";
+
+        // When
+        Car fetchedCar = parkingManager.fetch(carPlate);
+
+        // Then
+        assertNotNull(fetchedCar);
+        assertEquals(carPlate, fetchedCar.plateNumber());
+    }
+
+    @Test
+    void given_non_existing_car_plate_when_fetch_then_return_null() {
+        // Given
+        String carPlate = "XYZ999";
+
+        // When
+        Car fetchedCar = parkingManager.fetch(carPlate);
+
+        // Then
+        assertNull(fetchedCar);
+    }
+
+    @Test
+    void given_existing_car_plate_when_fetch_then_remove_car_from_parking_lot() {
+        // Given
+        String carPlate = "ABC123";
+
+        // When
+        Car fetchedCar = parkingManager.fetch(carPlate);
+
+        // Then
+        assertNotNull(fetchedCar);
+        assertNull(parkingManager.fetch(carPlate));
     }
 }

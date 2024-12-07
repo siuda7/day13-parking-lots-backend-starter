@@ -1,5 +1,6 @@
 package org.afs.pakinglot.domain;
 
+import org.afs.pakinglot.domain.exception.CarNotFoundException;
 import org.afs.pakinglot.domain.strategies.AvailableRateStrategy;
 import org.afs.pakinglot.domain.strategies.MaxAvailableStrategy;
 import org.afs.pakinglot.domain.strategies.ParkingStrategy;
@@ -28,6 +29,11 @@ public class ParkingManager {
         standardParkingBoy = new ParkingBoy(parkingLots, new SequentiallyStrategy());
         smartParkingBoy = new ParkingBoy(parkingLots, new MaxAvailableStrategy());
         superSmartParkingBoy = new ParkingBoy(parkingLots, new AvailableRateStrategy());
+
+        // Initial data
+        plazaPark.park(new Car("ABC123"));
+        cityMallGarage.park(new Car("DEF456"));
+        officeTowerParking.park(new Car("GHI789"));
     }
 
     public List<ParkingLot> getParkingLots() {
@@ -45,5 +51,13 @@ public class ParkingManager {
             case "SUPER" -> superSmartParkingBoy.park(car);
             default -> throw new IllegalArgumentException("Unknown parking strategy");
         };
+    }
+
+    public Car fetch(String carPlate) {
+        return getParkingLots().stream()
+                .map(parkingLot -> parkingLot.fetchCar(carPlate))
+                .filter(car -> car != null)
+                .findFirst()
+                .orElseThrow(() -> new CarNotFoundException(carPlate));
     }
 }

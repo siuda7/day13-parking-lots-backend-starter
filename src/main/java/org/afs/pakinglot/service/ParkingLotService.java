@@ -28,5 +28,9 @@ public class ParkingLotService {
         return parkingLotRepository.parkCar(strategy, car);
     }
 
+    public Car fetch(String carPlate) {
+        return parkingLotRepository.fetchCar(carPlate);
+    }
+
 
 }

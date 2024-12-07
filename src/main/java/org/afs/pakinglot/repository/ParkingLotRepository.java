@@ -25,4 +25,8 @@ public class ParkingLotRepository {
     public Ticket parkCar(String strategy, Car car) {
         return parkingManager.park(strategy, car);
     }
+
+    public Car fetchCar(String carPlate) {
+        return parkingManager.fetch(carPlate);
+    }
 }

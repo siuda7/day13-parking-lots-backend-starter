@@ -79,4 +79,17 @@ public class ParkingLot {
         return tickets.keySet().stream().toList();
     }
 
+    public Car fetchCar(String carPlate) {
+        Ticket ticket = tickets.entrySet().stream()
+                .filter(entry -> entry.getValue().plateNumber().equals(carPlate))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+
+        if (ticket != null) {
+            return tickets.remove(ticket);
+        }
+        return null;
+    }
+
 }

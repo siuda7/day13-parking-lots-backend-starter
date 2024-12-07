@@ -1,5 +1,6 @@
 package org.afs.pakinglot.controller;
 
+import org.afs.pakinglot.domain.Car;
 import org.afs.pakinglot.domain.ParkCarRequest;
 import org.afs.pakinglot.domain.ParkingLot;
 import org.afs.pakinglot.domain.Ticket;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("parkinglot")
+@CrossOrigin
 public class ParkingLotController {
 
     private final ParkingLotService parkingLotService;
@@ -27,5 +29,10 @@ public class ParkingLotController {
     @PostMapping("/park")
     public Ticket parkCar(@RequestBody ParkCarRequest request) {
         return parkingLotService.parkCar(request.getStrategy(), request.getCarPlate());
+    }
+
+    @GetMapping("/fetch/{carPlate}")
+    public Car fetchCar(@PathVariable String carPlate) {
+        return parkingLotService.fetch(carPlate);
     }
 }

@@ -5,6 +5,7 @@ import org.afs.pakinglot.domain.Car;
 import org.afs.pakinglot.domain.ParkCarRequest;
 import org.afs.pakinglot.domain.ParkingLot;
 import org.afs.pakinglot.domain.Ticket;
+import org.afs.pakinglot.domain.exception.CarNotFoundException;
 import org.afs.pakinglot.repository.ParkingLotRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,5 +96,21 @@ class ParkingLotControllerTest {
                 // Then
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(ticket)));
+    }
+
+    @Test
+    void given_existing_car_plate_when_get_to_fetch_then_return_car() throws Exception {
+        // Given
+        String carPlate = "ABC123";
+        Car car = new Car(carPlate);
+
+        given(parkingLotRepository.fetchCar(carPlate)).willReturn(car);
+
+        // When
+        client.perform(get("/parkinglot/fetch/{carPlate}", carPlate))
+                // Then
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.plateNumber").value(carPlate));
     }
 }
